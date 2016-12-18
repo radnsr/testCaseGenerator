@@ -122,7 +122,7 @@ body {
 <div class="container">
 
 
-        <h2 class="text-center">Online Learning Video</h2>
+        <h2 class="text-center">Test Case Generator</h2>
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -174,9 +174,6 @@ body {
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="last_name" id="last_name" tabindex="1" class="form-control" placeholder="Last Name" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" name="student_id" id="student_id" tabindex="1" class="form-control" placeholder="Student ID" value="">
                                     </div>
                                     <div class="form-group">
                                         <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
