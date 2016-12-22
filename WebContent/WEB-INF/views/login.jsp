@@ -168,7 +168,7 @@ body {
                                         </div>
                                     </div>
                                 </form>
-                                <form id="register-form" action="<?php echo base_url() ?>index.php/userReg/insert" method="post" role="form" style="display: none;">
+                                <form id="register-form" action="${baseURL}user/" method="post" role="form" style="display: none;">
                                     <div class="form-group">
                                         <input type="text" name="first_name" id="first_name" tabindex="1" class="form-control" placeholder="First Name" value="">
                                     </div>
@@ -182,8 +182,8 @@ body {
                                         <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
-                                    </div>
+                                    <!--      <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                -->    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
@@ -201,10 +201,10 @@ body {
     </div>
 </div> <!-- ./container -->
 
-<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/sweetalert.min.js"></script>
+<script src="${baseURL}static/js/jquery.min.js"></script>
+<script src="${baseURL}static/js/bootstrap.min.js"></script>
+<script src="${baseURL}static/js/jquery.validate.js"></script>
+<script src="${baseURL}static/js/sweetalert.min.js"></script>
 
 <script>
     $(function() {
@@ -236,32 +236,20 @@ body {
             last_name: {
 
                 required: true
-            },student_id: {
-           	required:true,
-							number:true,
-							minlength:5,
-							maxlength:5,
-							remote: {
-                    url: "<?php echo base_url() ?>index.php/userReg/checkStudentID",
-                    type: "post", async: true
-                }
             },
             email: {
                 required: true,
                 email: true,
-                remote: {
-                    url: "<?php echo base_url() ?>index.php/userReg/checkEmail",
-                    type: "post", async: true
-                }
+             
             }
 
         }, messages: {
             student_id: {
-                required: "Student ID is required",
-                remote: "Student ID already exist!"
+                required: "Student ID is required"
+              //  remote: "Student ID already exist!"
 
             }, email: {
-                remote: "Email Already exist!"
+              //  remote: "Email Already exist!"
 
             }
         },
@@ -282,19 +270,44 @@ body {
         }
     });
 
+    
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+  
 
     $("#register-form").submit(function(e){
         e.preventDefault();
         var url=$(this).attr("action");
             if(!$(this).valid()) return false;
+            var form_data = JSON.stringify($('#register-form').serializeObject())
+            //alert(form_data);
         $.ajax({
             type:'post',
             url:url,
-            data:$("#register-form").serialize(),
-            success:function(data) {
+            data:form_data,
+            contentType: "application/json",
+            dataType:'json',
+            success:function(data, textStatus, xhr) {
+            	alert(xhr.status);
                 swal("Successfully Registered!","Please enter credentials to login system","success");
                 $('#register-form')[0].reset();
             }
+        
         });
     });
 </script>

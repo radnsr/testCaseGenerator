@@ -29,14 +29,8 @@ public class UserRestController {
      
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
     public ResponseEntity<List<User>> listAllUsers() {
-      //  List<User> users = userService.getAllData();
-        List<User> users = new ArrayList<User>();
-        User user=new User();
-        user.setEmail("sdsd");
-        user.setId(1);
-        user.setUsername("dsds");
-        user.setPassword("asda");
-        users.add(user);
+        List<User> users = userService.getAllData();
+
         if(users.isEmpty()){
             return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
@@ -64,13 +58,13 @@ public class UserRestController {
      
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + user.getUsername());
+        System.out.println("Creating User " + user.getEmail());
  
  
         userService.save(user);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+     //   HttpHeaders headers = new HttpHeaders();
+       // headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
  
     
@@ -88,7 +82,8 @@ public class UserRestController {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
  
-        currentUser.setUsername(user.getUsername());
+        currentUser.setFirst_name(user.getFirst_name());
+        currentUser.setLast_name(user.getLast_name());
         currentUser.setPassword(user.getPassword());
         currentUser.setEmail(user.getEmail());
          
