@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 		if(entity!=null){
 			entity.setEmail(user.getEmail());
 			entity.setPassword(user.getPassword());
-			entity.setUsername(user.getUsername());
+			entity.setFirst_name(user.getFirst_name());
 			
 		}
 	}
@@ -45,6 +45,19 @@ public class UserServiceImpl implements UserService {
 		return dao.getAllData();
 	}
 
+	public User authenticate(User user) {
+		User valid_user=findByEmail(user.getEmail());
+		
+			if (valid_user.getPassword().equals(user.getPassword())) {
 
+				return valid_user;
+			}
+		
+		return null;
+	}
+	@Override
+	public User findByEmail(String email) {
+		return dao.findByEmail(email);
+	}
 	
 }

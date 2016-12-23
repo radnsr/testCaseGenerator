@@ -3,6 +3,8 @@ package com.testcase.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.testcase.model.User;
@@ -24,6 +28,40 @@ public class UserRestController {
     @Autowired
     UserService userService;  //Service which will do all data retrieval/manipulation work
  
+    
+    
+ // -------------------Login authentication-------------
+ 	@RequestMapping(value = "/login/", method = RequestMethod.POST)
+ 	public ModelAndView login2(@RequestParam(value = "email") String email,
+ 			@RequestParam(value = "password") String password,
+ 			HttpSession session) {
+
+ 		User au_user = new User();
+ 		au_user.setEmail(email);
+ 		au_user.setPassword(password);
+ 		User user = userService.authenticate(au_user);
+ 		System.out.println(user);
+ 		if (user == null) {
+ 			session.setAttribute("error", "Email or Password is wrong!!!");
+ 			return new ModelAndView("index");
+ 		}else if (user.getRole() == "") {
+ 			session.setAttribute("error", "This profile is deactivated by administrator");
+ 			return new ModelAndView("index");
+ 		}
+ 		session.setAttribute("user", user);
+ 		return new ModelAndView("dashboard");
+ 	}
+
+ 	// -------------------Log out-------------
+ 	@RequestMapping(value = "/logout/", method = RequestMethod.GET)
+ 	public ModelAndView logout(HttpSession session) {
+
+ 		session.removeAttribute("user");
+ 		session.invalidate();
+
+ 		return new ModelAndView("index");
+ 	}
+    
     
     //-------------------Retrieve All Users--------------------------------------------------------
      

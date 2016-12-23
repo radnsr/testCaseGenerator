@@ -301,11 +301,14 @@ body {
             url:url,
             data:form_data,
             contentType: "application/json",
-            dataType:'json',
             success:function(data, textStatus, xhr) {
-            	alert(xhr.status);
-                swal("Successfully Registered!","Please enter credentials to login system","success");
-                $('#register-form')[0].reset();
+            	if(xhr.status== 201){
+            		 swal("Successfully Registered!","Please enter credentials to login system","success");
+                     $('#register-form')[0].reset();
+            	}else{
+            		 swal("Something went wrong!","Please contact system administrator","error");
+            	}
+               
             }
         
         });

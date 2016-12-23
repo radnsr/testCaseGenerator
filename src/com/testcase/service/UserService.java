@@ -13,7 +13,9 @@ public interface UserService {
 	void update(User user);
 	
 
-	List<User> getAllData(); 
+	List<User> getAllData();
+
+	User findByEmail(String email); 
 	
-		
+	public User authenticate(User user);	
 }
