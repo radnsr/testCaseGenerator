@@ -141,7 +141,7 @@ body {
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <form id="login-form" action="<?php echo base_url() ?>index.php/login/login_authentication" method="post" role="form" style="display: block;">
+                                <form id="login-form" action="${baseURL}login/" method="post" role="form" style="display: block;">
                                     <div class="form-group">
                                         <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                                     </div>
@@ -149,7 +149,7 @@ body {
                                         <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                     </div>
                                     <div class="form-group text-center">
-                                        <label for="remember"> <?php echo $msg;?></label>
+                                        <label for="remember">${error}</label>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
@@ -182,8 +182,8 @@ body {
                                         <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                     </div>
                                     <div class="form-group">
-                                    <!--      <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
-                                -->    </div>
+                                       <input type="password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                    </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">

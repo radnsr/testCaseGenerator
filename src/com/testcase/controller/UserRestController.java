@@ -1,12 +1,10 @@
 package com.testcase.controller;
  
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +57,7 @@ public class UserRestController {
  		session.removeAttribute("user");
  		session.invalidate();
 
- 		return new ModelAndView("index");
+ 		return new ModelAndView("login");
  	}
     
     
@@ -97,7 +95,7 @@ public class UserRestController {
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + user.getEmail());
- 
+ user.setRole("User");
  
         userService.save(user);
      //   HttpHeaders headers = new HttpHeaders();

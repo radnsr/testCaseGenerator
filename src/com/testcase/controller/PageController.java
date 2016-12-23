@@ -11,4 +11,12 @@ public class PageController {
     public String getIndexPage() {
         return "login";
     }
+	@RequestMapping(value="/dashboard",method = RequestMethod.GET)
+	public String dashboard() {
+		return "dashboard";
+	}
+	@RequestMapping(value="/error",method = RequestMethod.GET)
+	public String error() {
+		return "login";
+	}
 }
