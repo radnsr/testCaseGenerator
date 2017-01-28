@@ -13,6 +13,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private int id;
 
 	@Column(name = "FIRST_NAME", nullable = false)
