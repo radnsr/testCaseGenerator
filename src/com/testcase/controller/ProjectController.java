@@ -48,7 +48,6 @@ public class ProjectController {
     @RequestMapping(value = "/project/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody Project project,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + project.getProjectName());
-        project.setProjectName(project.getProjectName());
         projectService.save(project);
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }     

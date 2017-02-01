@@ -2,37 +2,45 @@ package com.testcase.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.testcase.dao.TestCaseDao;
 import com.testcase.model.TestCase;
 
 @Service("testCaseService")
 @Transactional
 public class TestCaseServiceImpl implements TestCaseService{
-
+	@Autowired
+	private TestCaseDao dao;
+	
 	@Override
 	public TestCase findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findById(id);
 	}
 
 	@Override
 	public void save(TestCase testCase) {
-		// TODO Auto-generated method stub
-		
+		save(testCase);
 	}
 
 	@Override
 	public void update(TestCase testCase) {
-		// TODO Auto-generated method stub
+TestCase entity= dao.findById(testCase.getId());
+if(entity !=null){
+	entity.setFunc_require(testCase.getFunc_require());
+	entity.setNon_func_require(testCase.getNon_func_require());
+	entity.setProjetc_id(testCase.getProjetc_id());
+	entity.setTest_suit_id(testCase.getTest_suit_id());
+}
 		
 	}
 
 	@Override
 	public List<TestCase> getAllData() {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.getAllData();
 	}
 
 }

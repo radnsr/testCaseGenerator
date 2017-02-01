@@ -48,7 +48,6 @@ public class TestSuiteController {
     @RequestMapping(value = "/testSuite/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody TestSuite testSuite,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating Testsuite " + testSuite.getTest_suit_name());
-        testSuite.setTest_suit_name(testSuite.getTest_suit_name());
         testSuiteService.save(testSuite);
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }     
