@@ -2,8 +2,11 @@ package com.testcase.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.testcase.model.TestSuite;
 
+@Repository("testSuitDao")
 public class TestSuiteDaoImpl extends AbstractDao<Integer, TestSuite> implements TestSuiteDao {
 
 	@Override

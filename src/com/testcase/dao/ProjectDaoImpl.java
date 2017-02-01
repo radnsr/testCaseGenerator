@@ -3,10 +3,12 @@ package com.testcase.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.springframework.stereotype.Repository;
 
 import com.testcase.model.Project;
 import com.testcase.model.User;
 
+@Repository("projectDao")
 public class ProjectDaoImpl extends AbstractDao<Integer, Project> implements ProjectDao{
 
 	@Override

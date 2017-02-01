@@ -1,10 +1,17 @@
 package com.testcase.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "TEST_CASE")
 public class TestCase {
 
 	@Id
@@ -12,11 +19,13 @@ public class TestCase {
 	@Column(name = "ID")
 	private int id;
 	
-	@Column(name = "TEST_SUIT_ID")
-	private int test_suit_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TEST_SUITE_ID")
+	private TestSuite test_suit_id;
 	
-	@Column(name = "PROJECT_ID")
-	private int projetc_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PROJECT_ID")
+	private Project projetc_id;
 	
 	@Column(name = "FUNC_REQUIRE")
 	private String func_require;
@@ -32,19 +41,21 @@ public class TestCase {
 		this.id = id;
 	}
 
-	public int getTest_suit_id() {
+	
+
+	public TestSuite getTest_suit_id() {
 		return test_suit_id;
 	}
 
-	public void setTest_suit_id(int test_suit_id) {
+	public void setTest_suit_id(TestSuite test_suit_id) {
 		this.test_suit_id = test_suit_id;
 	}
 
-	public int getProjetc_id() {
+	public Project getProjetc_id() {
 		return projetc_id;
 	}
 
-	public void setProjetc_id(int projetc_id) {
+	public void setProjetc_id(Project projetc_id) {
 		this.projetc_id = projetc_id;
 	}
 

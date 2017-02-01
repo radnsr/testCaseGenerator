@@ -2,9 +2,12 @@ package com.testcase.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.testcase.model.TestCase;
 import com.testcase.model.User;
 
+@Repository("testCaseDao")
 public class TestCaseDaoImpl extends AbstractDao<Integer, TestCase> implements TestCaseDao {
 
 	@Override

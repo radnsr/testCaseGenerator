@@ -1,19 +1,27 @@
 package com.testcase.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "TEST_SUITE")
 public class TestSuite {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "TEST_SUITE_ID")
 	private int id;
 	
-	@Column(name = "PROJECT_ID")
-	private int project_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID")
+	private Project project;
 	
 	@Column(name = "TEST_SUIT_NAME")
 	private String test_suit_name;
@@ -29,12 +37,13 @@ public class TestSuite {
 		this.id = id;
 	}
 
-	public int getProject_id() {
-		return project_id;
+	
+	public Project getProject() {
+		return project;
 	}
 
-	public void setProject_id(int project_id) {
-		this.project_id = project_id;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	public String getTest_suit_name() {
