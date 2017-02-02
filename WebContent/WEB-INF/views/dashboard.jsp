@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	    <%@page import="com.testcase.model.User"%>
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,7 +145,17 @@ footer {
 </style>
 </head>
 <body>
-
+<%
+			User currentUser = (User) (session.getAttribute("user"));
+			if (currentUser == null) {
+				response.sendRedirect("error");
+			} else {
+		%>
+		Hi,<%=currentUser.getFirst_name()%>
+		<%
+			}
+		%>
+		
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -164,6 +176,8 @@ footer {
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
 							Login</a></li>
+					<li><a href="http://localhost:8080/TestCaseGenerator/logout/"><span class="glyphicon glyphicon-log-in"></span>
+							Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -238,7 +252,11 @@ footer {
 							<form id="projectForm" action="projectCon" method="post">
 								<div class="form-group">
 									<label>Project Name</label> <input type="text"
-										name="project_name" class="form-control">
+										name="projectName" class="form-control">
+										<input type="text"
+										name="status" value="1" class="form-control">
+										<input type="text"
+										name="id" value="" class="form-control">
 								</div>
 								<div class="form-group">
 									<input type="submit" value="Create"
@@ -291,14 +309,15 @@ footer {
 <script>
 
 /* load projects from db */
+ var base_url="http://localhost:8080/TestCaseGenerator/";
  $(document).ready(function(){
 	 $.ajax({
 		 type:'get',
-		 url:'projectCon?action=project_list',
+		 url:base_url+'project/',
 		dataType:'json',
 		success: function(data){
 			$.each(data,function(i,obj){
-				var html='<li><span class="hasmenu">'+obj.projectname+'</span></li>'
+				var html='<li><span class="hasmenu">'+obj.projectName+'</span></li>'
 		         $("#project_list").append(html);
 			});
 		
@@ -411,8 +430,9 @@ $("#projectForm").submit(function(e){
 	
 	$.ajax({
 		type:'post',
-		url:'projectCon',
+		url:base_url+'project/',
 		data:$(this).serialize(),
+		dataType:'json',
 		success:function(data){
 			if(data== 'true'){
 				alert("Successfully created!");

@@ -27,9 +27,9 @@ public class TestSuiteDaoImpl extends AbstractDao<Integer, TestSuite> implements
 	@Override
 	public List<TestSuite> getAllData() {
 		Criteria criteria = createEntityCriteria();
-		//criteria.createAlias
-		 criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
-		 criteria.add(Restrictions.eqProperty("project.id", "testSuite"));
+	//	criteria.
+		 criteria.setResultTransformer(Criteria.PROJECTION);//To avoid duplicates.
+		// criteria.add(Restrictions.eqProperty("project.id", "testSuite"));
 		return (List<TestSuite>) criteria.list();
 	}
 
