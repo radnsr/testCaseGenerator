@@ -20,7 +20,7 @@ public class TestSuite {
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID")
+	@JoinColumn(name = "PROJECT_ID")
 	private Project project;
 	
 	@Column(name = "TEST_SUIT_NAME")

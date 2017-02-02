@@ -27,6 +27,7 @@ public class TestSuiteController {
     @RequestMapping(value = "/testSuite/", method = RequestMethod.GET)
     public ResponseEntity<List<TestSuite>> listAllUsers() {
         List<TestSuite> testSuites = testSuiteService.getAllData();
+        System.out.println(testSuites.iterator().next().getProject().getId());
         if(testSuites.isEmpty()){
             return new ResponseEntity<List<TestSuite>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }

@@ -3,6 +3,8 @@ package com.testcase.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.testcase.model.Project;
@@ -25,6 +27,9 @@ public class TestSuiteDaoImpl extends AbstractDao<Integer, TestSuite> implements
 	@Override
 	public List<TestSuite> getAllData() {
 		Criteria criteria = createEntityCriteria();
+		//criteria.createAlias
+		 criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		 criteria.add(Restrictions.eqProperty("project.id", "testSuite"));
 		return (List<TestSuite>) criteria.list();
 	}
 

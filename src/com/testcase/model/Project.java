@@ -16,7 +16,7 @@ public class Project {
 	@Column(name = "PROJECT_ID")
 	private int id;
 	
-	@Column(name = "FIRST_NAME")
+	@Column(name = "PROJECT_NAME")
 	private String projectName;
 	
 	@Column(name = "STATUS")
