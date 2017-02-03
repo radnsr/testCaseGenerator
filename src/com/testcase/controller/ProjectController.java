@@ -48,20 +48,22 @@ public class ProjectController {
     @RequestMapping(value = "/project/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody Project project,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + project.getProjectName());
+        project.setStatus(1);
         projectService.save(project);
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }     
     //------------------- Update a User --------------------------------------------------------
-    @RequestMapping(value = "/project/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Project> updateUser(@PathVariable("id") int id, @RequestBody Project project) {
-        System.out.println("Updating Project " + id);
+    @RequestMapping(value = "/project_update/", method = RequestMethod.POST)
+    public ResponseEntity<Project> updateUser(@RequestBody Project project) {
+        System.out.println("Updating Project " + project.getId());
          
-        Project current = projectService.findById(id);        
+        Project current = projectService.findById(project.getId());        
         if (current==null) {
-            System.out.println("Project with id " + id + " not found");
+            System.out.println("Project with id " + project.getId() + " not found");
             return new ResponseEntity<Project>(HttpStatus.NOT_FOUND);
         }       
-        current.setProjectName(project.getProjectName());      
+        current.setNon_func_require(project.getNon_func_require());
+        current.setFunc_require(project.getFunc_require());
         projectService.update(current);
         return new ResponseEntity<Project>(current, HttpStatus.OK);
     } 

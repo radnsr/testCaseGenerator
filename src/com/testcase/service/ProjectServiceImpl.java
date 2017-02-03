@@ -32,6 +32,8 @@ dao.save(project);
 		Project entity = dao.findById(project.getId());
 		if(entity!=null){
 			entity.setProjectName(project.getProjectName());
+			entity.setFunc_require(project.getFunc_require());
+			entity.setNon_func_require(project.getNon_func_require());
 			entity.setStatus(project.getStatus());
 		}		
 	}

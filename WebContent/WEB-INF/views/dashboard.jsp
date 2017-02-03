@@ -222,14 +222,21 @@ footer {
 						<button class="btn btn-primary" href="#modal" data-toggle="modal">Create</button>
 
 
-						<button class="btn btn-success">Save</button>
+						<button class="btn btn-success" form="requirement_form">Save</button>
 						<button class="btn btn-warning">Run</button>
 						<button class="btn btn-danger">Delete</button>
 						<button class="btn btn-info">Help</button>
 					</div>
 					<div class="well">
-						<textarea rows="20" cols="75"
-							placeholder="enter business requirement here"></textarea>
+					<form id="requirement_form">
+					<input name="id" hidden="" id="project_id" />
+						<textarea rows="10" cols="75" name="func_require" id="func_require"
+							placeholder="enter functional requirement here"></textarea>
+							
+							<textarea rows="10" cols="75" name="non_func_require" id="non_func_require"
+							placeholder="enter non-functional requirement here"></textarea>
+					</form>
+					
 					</div>
 				</div>
 			</div>
@@ -253,10 +260,7 @@ footer {
 								<div class="form-group">
 									<label>Project Name</label> <input type="text"
 										name="projectName" class="form-control">
-										<input type="text"
-										name="status" value="1" class="form-control">
-										<input type="text"
-										name="id" value="" class="form-control">
+										
 								</div>
 								<div class="form-group">
 									<input type="submit" value="Create"
@@ -308,22 +312,6 @@ footer {
 </body>
 <script>
 
-/* load projects from db */
- var base_url="http://localhost:8080/TestCaseGenerator/";
- $(document).ready(function(){
-	 $.ajax({
-		 type:'get',
-		 url:base_url+'project/',
-		dataType:'json',
-		success: function(data){
-			$.each(data,function(i,obj){
-				var html='<li><span class="hasmenu">'+obj.projectName+'</span></li>'
-		         $("#project_list").append(html);
-			});
-		
-		}	 
-	 }); 
- });
 
 
 $(function () {
@@ -424,25 +412,105 @@ $(document).contextmenu({
     }
 });
 
+
+
+ var base_url="http://localhost:8080/TestCaseGenerator/";
+ $(document).ready(function(){
+	 /* start-load projects from db */
+	 $.ajax({
+		 type:'get',
+		 url:base_url+'project/',
+		dataType:'json',
+		success: function(data){
+			$.each(data,function(i,obj){
+				if(obj.status ==1){
+				var html='<li><span class="hasmenu projectItem" id="P'+obj.id+'">'+obj.projectName+'</span></li>'
+		         $("#project_list").append(html);
+				}
+			});
+		}	 
+	 });/*end- load projects from db */
+	 
+	 /*start- click on project list item */
+	 $("body").on("click",".projectItem",function(e){
+		 e.preventDefault();
+		 var current=this.id;
+		 var id=current.replace("P","");
+		 $("#project_id").val(id);
+		 $.ajax({
+			 type:"GET",
+			 url:base_url+'project/'+id,
+			 dataType:'json',
+			 success:function(data){
+				 $("#non_func_require").val(data.non_func_require);
+				 $("#func_require").val(data.func_require);
+			 }
+		 });
+	 });
+	 
+	 /*end- click on project list item */
+	 /*start- save requirement */
+	 $("#requirement_form").submit(function(e){
+		 e.preventDefault();
+		 $.ajax({
+				type:'post',
+				url:base_url+'project_update/',
+				contentType: "application/json",
+				data:JSON.stringify($("#requirement_form").serializeObject()),
+				success:function(data,textStatus,XHR){
+					console.log(XHR);
+					if(XHR.status== 200){
+						alert("Successfully Updated!");
+						window.location=base_url+"dashboard";
+					}else{
+						alert("Failed. data not updated!")
+					}
+				}
+			});
+	 });
+	 /*end- save requirement */
+ });
+
 //project form submission
 $("#projectForm").submit(function(e){
 	e.preventDefault();
+	var formData=$(this).serialize();
+	
+	
 	
 	$.ajax({
 		type:'post',
 		url:base_url+'project/',
-		data:$(this).serialize(),
-		dataType:'json',
-		success:function(data){
-			if(data== 'true'){
+		contentType: "application/json",
+		data:JSON.stringify($("#projectForm").serializeObject()),
+		success:function(data,textStatus,XHR){
+			console.log(XHR);
+			if(XHR.status== 201){
 				alert("Successfully created!");
-				window.location="dashboard.jsp";
+				window.location=base_url+"dashboard";
 			}else{
 				alert("Failed. data not saved!")
 			}
 		}
 	});
 });
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
 </script>
 </html>
 
