@@ -19,10 +19,10 @@ public class Project {
 	@Column(name = "PROJECT_NAME")
 	private String projectName;
 	
-	@Column(name = "FUNC_REQUIRE")
+	@Column(name = "FUNC_REQUIRE",length=1000)
 	private String func_require;
 	
-	@Column(name = "NON_FUNC_REQUIRE")
+	@Column(name = "NON_FUNC_REQUIRE",length=1000)
 	private String non_func_require;
 	
 	@Column(name = "STATUS")

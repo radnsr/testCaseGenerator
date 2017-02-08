@@ -88,6 +88,25 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.opennlp/opennlp-tools -->
+<dependency>
+    <groupId>org.apache.opennlp</groupId>
+    <artifactId>opennlp-tools</artifactId>
+    <version>1.5.3</version>
+</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.opennlp/opennlp-maxent -->
+<dependency>
+    <groupId>org.apache.opennlp</groupId>
+    <artifactId>opennlp-maxent</artifactId>
+    <version>3.0.3</version>
+</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.opennlp/opennlp-uima -->
+<dependency>
+    <groupId>org.apache.opennlp</groupId>
+    <artifactId>opennlp-uima</artifactId>
+    <version>1.5.3</version>
+</dependency>
+		
 	</dependencies>
   
 </project>

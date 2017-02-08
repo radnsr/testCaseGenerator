@@ -51,7 +51,7 @@ dao.save(project);
 		
 		try {
 			testCaseList=	new testNlp().GenerateTestCase(paragraph);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

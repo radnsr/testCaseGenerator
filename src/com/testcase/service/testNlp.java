@@ -32,7 +32,7 @@ public class testNlp {
 	String actor;
 	public static ArrayList<String> TestSet = new ArrayList<String>();
 	public static ArrayList<String> ReqSet = new ArrayList<String>();
-	String path="/Users/nipunaranasinghe/Downloads/Test case pro-0/Test case pro/DesignPlus v1.4/src/";
+	String path="D:\\Test case pro\\DesignPlus v1.4\\src\\";
 	
 	
 	
