@@ -1,5 +1,6 @@
 package com.testcase.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.testcase.model.Project;
@@ -11,6 +12,7 @@ public interface ProjectService {
 	
 	void update(Project project);
 	
+	ArrayList<String> GenerateTestCase(String paragraph);
 
 	List<Project> getAllData();
 }

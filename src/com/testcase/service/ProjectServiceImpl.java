@@ -1,5 +1,7 @@
 package com.testcase.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,18 @@ dao.save(project);
 	public List<Project> getAllData() {
 		// TODO Auto-generated method stub
 		return dao.getAllData();
+	}
+	@Override
+	public ArrayList<String> GenerateTestCase(String paragraph) {
+		ArrayList<String> testCaseList=new ArrayList<String>();
+		
+		try {
+			testCaseList=	new testNlp().GenerateTestCase(paragraph);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return testCaseList;
 	}
 
 }

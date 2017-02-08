@@ -61,7 +61,9 @@ public class ProjectController {
         if (current==null) {
             System.out.println("Project with id " + project.getId() + " not found");
             return new ResponseEntity<Project>(HttpStatus.NOT_FOUND);
-        }       
+        } 
+        
+        System.out.println("TESTCASE:"+ projectService.GenerateTestCase(project.getFunc_require()));
         current.setNon_func_require(project.getNon_func_require());
         current.setFunc_require(project.getFunc_require());
         projectService.update(current);
