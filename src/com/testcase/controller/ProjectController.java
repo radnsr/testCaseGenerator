@@ -1,5 +1,6 @@
 package com.testcase.controller;
  
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +64,26 @@ public class ProjectController {
             return new ResponseEntity<Project>(HttpStatus.NOT_FOUND);
         } 
         
-        System.out.println("TESTCASE:"+ projectService.GenerateTestCase(project.getFunc_require()));
+        //System.out.println("TESTCASE:"+ projectService.GenerateTestCase(project.getFunc_require()));
         current.setNon_func_require(project.getNon_func_require());
         current.setFunc_require(project.getFunc_require());
         projectService.update(current);
         return new ResponseEntity<Project>(current, HttpStatus.OK);
     } 
+    @RequestMapping(value = "/project_testcase/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> GenerateTestCase(@PathVariable("id") int id) {
+        System.out.println("Generating Testcase " + id);
+         
+        Project current= new Project();
+        current= projectService.findById(id);        
+        if (current==null) {
+            System.out.println("Project with id " + id + " not found");
+            return new ResponseEntity<List<String>>(HttpStatus.NOT_FOUND);
+        } 
+        List<String> testList = new ArrayList<String>();
+        		testList=	projectService.GenerateTestCase(current.getFunc_require());
+        System.out.println("TESTCASE:"+ testList);
+        
+        return new ResponseEntity<List<String>>(testList, HttpStatus.OK);
+    }
 }

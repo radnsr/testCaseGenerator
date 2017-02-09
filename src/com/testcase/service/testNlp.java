@@ -137,7 +137,7 @@ public void RuleMap(String paragraph) throws IOException {
 			//base case
 			if(found)
 				break;
-
+ 
 			//sentence is shorter than the Rule - change the rule
 			if(tokenizedsentence.length<Grammar[j].length)
 				continue;
@@ -159,7 +159,7 @@ public void RuleMap(String paragraph) throws IOException {
 
 						String[] alternatives= Grammar[j][k].split("/");
 						
-						// for each alternate tag
+						// for each alternate tag  
 						for(String alt : alternatives){
 							
 											if(tokenizedsentence[i].endsWith(alt)){

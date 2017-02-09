@@ -21,6 +21,9 @@
 <script
 	src="https://rawgit.com/mar10/jquery-ui-contextmenu/master/jquery.ui-contextmenu.js"></script>
 <style>
+table, th, td {
+   border: 1px solid black;
+}
  .hasmenu2 {
 	border: 1px solid #008;
 	margin: 3px;
@@ -223,7 +226,7 @@ footer {
 
 
 						<button class="btn btn-success" form="requirement_form">Save</button>
-						<button class="btn btn-warning">Run</button>
+						<button class="btn btn-warning" id="generateBtn">Generate</button>
 						<button class="btn btn-danger">Delete</button>
 						<button class="btn btn-info">Help</button>
 					</div>
@@ -298,6 +301,33 @@ footer {
 
 								<button class="btn btn-primary m-t-n-xs" data-dismiss="modal">Close</button>
 							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--test suite modal END  -->
+	
+	<!-- TEst suite Modal START -->
+	<div id="testcase-modal" class="modal fade" aria-hidden="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-12 ">
+							<h3 class="m-t-none m-b "> Test Case</h3>
+							<table style="{border-style: solid;}">
+							<thead>
+							<tr>
+							<th>ID</th>
+							<th>Test Case</th>
+							</tr>
+							</thead>
+							<tbody id="test_body">
+							
+							</tbody>
+							</table>
 						</div>
 
 					</div>
@@ -510,7 +540,28 @@ $.fn.serializeObject = function()
     });
     return o;
 };
-
+/*start- click on project list item */
+$("body").on("click","#generateBtn",function(e){
+	 e.preventDefault();
+	
+	var id= $("#project_id").val();
+	 $.ajax({
+		 type:"GET",
+		 url:base_url+'project_testcase/'+id,
+		 dataType:'json',
+		 contentType:'application/json',
+		 success:function(data){
+			alert(data);
+			for(i=0; i<data.length;i++){
+				$("#test_body").append("<tr><td>"+i+1+"</td><td>"+data[i]+"</td>");
+			}
+			
+			$("#testcase-modal").modal("show");
+			
+		 }
+	 });
+});
+/*end- click on project list item */
 </script>
 </html>
 
