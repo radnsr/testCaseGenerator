@@ -29,7 +29,7 @@ import opennlp.tools.util.PlainTextByLineStream;
 
 public class testNlp {
 
-	String actor;
+	String entity;
 	public static ArrayList<String> TestSet = new ArrayList<String>();
 	public static ArrayList<String> ReqSet = new ArrayList<String>();
 	String path="D:\\Test case pro\\DesignPlus v1.4\\src\\";
@@ -38,7 +38,7 @@ public class testNlp {
 	
 	public ArrayList<String> GenerateTestCase(String paragraph) throws IOException{
 		ArrayList<String> TestCaseList = new ArrayList<String>();
-		
+		testNlp.TestSet=new ArrayList<String>(); // Added this new line
 		new testNlp().RuleMap(paragraph);
 		TestCaseList= testNlp.TestSet;
 		
@@ -179,10 +179,10 @@ public void RuleMap(String paragraph) throws IOException {
 									
 									ReqSet.add(oneLine);
 									
-									System.out.println(actor);
-									Caseconstruct(whitespaceTokenizerLine,matchedWord,matches,j,"Verify that ",actor);
+									System.out.println(entity);
+									Caseconstruct(whitespaceTokenizerLine,matchedWord,matches,j,"Verify that ",entity);
 									
-									actor=	matchedWord[0];							
+									entity=	matchedWord[0];							
 									break;
 								}
 								else	

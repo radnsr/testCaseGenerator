@@ -172,9 +172,9 @@ footer {
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="#"></a></li>
 					<li><a href="#">Projects</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="#"></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
@@ -218,6 +218,7 @@ footer {
 
 	
 
+
 			</div>
 			<div class="col-sm-7">
 				<div class="container-fluid">
@@ -244,10 +245,7 @@ footer {
 				</div>
 			</div>
 			<div class="col-sm-2 sidenav">
-				<div class="well">
-					<p>ADS</p>
-				</div>
-				<div class="well"></div>
+				
 			</div>
 		</div>
 	</div>
@@ -551,12 +549,13 @@ $("body").on("click","#generateBtn",function(e){
 		 dataType:'json',
 		 contentType:'application/json',
 		 success:function(data){
-			alert(data);
+				$("#testcase-modal").modal("show");
+
+			 $("#test_body").empty();
 			for(i=0; i<data.length;i++){
-				$("#test_body").append("<tr><td>"+i+1+"</td><td>"+data[i]+"</td>");
+				$("#test_body").append("<tr><td>"+Number(i+1)+"</td><td>"+data[i]+"</td>");
 			}
 			
-			$("#testcase-modal").modal("show");
 			
 		 }
 	 });
