@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Bootstrap Example</title>
+<title>Test Case Generator</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -192,9 +192,9 @@ footer {
 				<div class="well">				
 					<p>My Projects</p>
 				</div>
-<div class="tree">
+    <div class="tree">
     <ul id=project_list>
-        <li>
+      <!--  <li>
             <span class="hasmenu">Project 1</span>
             <ul>
                 <li>
@@ -210,10 +210,10 @@ footer {
                  
                 </li>
             </ul>
-        </li>
+        </li> -->
     
     </ul>
-</div>
+</div> 
 
 
 	
@@ -315,17 +315,26 @@ footer {
 					<div class="row">
 						<div class="col-lg-12 ">
 							<h3 class="m-t-none m-b "> Test Case</h3>
+							
+							<b>Description :</b><span id="description"></span><br /><br />
+							<b>Prerequisite :</b><span id="prerequisite"></span>
+							<br />
+							<br />
 							<table style="{border-style: solid;}">
 							<thead>
 							<tr>
-							<th>ID</th>
-							<th>Test Case</th>
+							<th>Step No</th>
+							<th>Test Step</th>
 							</tr>
 							</thead>
 							<tbody id="test_body">
 							
 							</tbody>
 							</table>
+							<br>
+							<b>Alternatives Flow :</b><span id="alternative"></span><br /><br />
+							<b>Expected Result :</b><span id="expected_result"></span>
+							
 						</div>
 
 					</div>
@@ -551,9 +560,19 @@ $("body").on("click","#generateBtn",function(e){
 		 success:function(data){
 				$("#testcase-modal").modal("show");
 
-			 $("#test_body").empty();
-			for(i=0; i<data.length;i++){
-				$("#test_body").append("<tr><td>"+Number(i+1)+"</td><td>"+data[i]+"</td>");
+			 $("#test_body").empty(); // line added here
+			 
+			 var description=data[0];
+			 var prerequisite=data[1];
+			 var alternative=data[2];
+			 var expected_result=data[3];
+			 
+			 $("#description").text(description);
+			 $("#prerequisite").text(prerequisite);
+			 $("#alternative").text(alternative);
+			 $("#expected_result").text(expected_result);
+			for(i=4; i<data.length;i++){
+				$("#test_body").append("<tr><td>"+Number(i-3)+"</td><td>"+data[i]+"</td>");
 			}
 			
 			

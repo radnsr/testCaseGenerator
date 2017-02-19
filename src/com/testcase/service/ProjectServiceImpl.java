@@ -51,6 +51,14 @@ dao.save(project);
 		
 		try {
 			testCaseList=	new testNlp().GenerateTestCase(paragraph);
+			for( int i=0; i < testCaseList.size(); i++){
+				String oneLine=testCaseList.get(i);
+				if(oneLine.toLowerCase().contains("target") || oneLine.toLowerCase().contains("prerequisite") ||
+						oneLine.toLowerCase().contains("outcome") || oneLine.toLowerCase().contains("alternative")){
+					testCaseList.remove(i);
+				}
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

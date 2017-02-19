@@ -103,6 +103,7 @@ public void RuleMap(String paragraph) throws IOException {
 	SimpleTokenizer instance = SimpleTokenizer.INSTANCE;
 			
 	String sentences[] = sdetector.sentDetect(Input); //Paragraph to Sentences
+	//String sentences[] = new String [sentences1.length];
 	
 	
 	for( String oneLine : sentences){ // Take Sentences by Sentences
