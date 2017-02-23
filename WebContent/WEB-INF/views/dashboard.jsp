@@ -192,9 +192,9 @@ footer {
 				<div class="well">				
 					<p>My Projects</p>
 				</div>
-    <div class="tree">
+	    <div class="tree">
     <ul id=project_list>
-      <!--  <li>
+        <li>
             <span class="hasmenu">Project 1</span>
             <ul>
                 <li>
@@ -210,7 +210,7 @@ footer {
                  
                 </li>
             </ul>
-        </li> -->
+        </li> 
     
     </ul>
 </div> 
@@ -351,7 +351,9 @@ footer {
 
 
 
-$(function () {
+
+function treeList() {
+	 
     $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
     $('.tree li.parent_li > span').on('click', function (e) {
         var children = $(this).parent('li.parent_li').find(' > ul > li');
@@ -362,9 +364,11 @@ $(function () {
             children.show('fast');
             $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
         }
-        e.stopPropagation();
+       // e.stopPropagation();
     });
-});
+    var children2 = $('.tree li.parent_li > span').parent('li.parent_li').find(' > ul > li');
+	 children2.hide('fast');
+}
 //right button click
 /* 
 $(document).ready(function(){ 
@@ -461,15 +465,19 @@ $(document).contextmenu({
 		success: function(data){
 			$.each(data,function(i,obj){
 				if(obj.status ==1){
-				var html='<li><span class="hasmenu projectItem" id="P'+obj.id+'">'+obj.projectName+'</span></li>'
+				var html='<li><span class="hasmenu projectItem" id="P'+obj.id+'">'+obj.projectName+'</span>'+
+				'<ul><li><span><i class="icon-minus-sign"></i>Functional Testcases</span></li>'+
+				'<li><span><i class="icon-minus-sign"></i>Non Functional Testcases</span></li></ul>'
+                        +'</li>';
 		         $("#project_list").append(html);
 				}
 			});
+			treeList();
 		}	 
 	 });/*end- load projects from db */
 	 
 	 /*start- click on project list item */
-	 $("body").on("click",".projectItem",function(e){
+	 $("#project_list:has(li)").on("click",".projectItem",function(e){
 		 e.preventDefault();
 		 var current=this.id;
 		 var id=current.replace("P","");
