@@ -107,8 +107,10 @@ public void RuleMap(String paragraph) throws IOException {
 	
 	
 	for( String oneLine : sentences){ // Take Sentences by Sentences
-		oneLine= oneLine.replace(".", "");   
+		oneLine= oneLine.replace(".com", "B&B");   
+		oneLine= oneLine.replace(".", "");
 		oneLine= oneLine.replace(",", "");   
+		oneLine= oneLine.replace("B&B", ".com");   
 		
 	ObjectStream<String> lineStream = new PlainTextByLineStream(new StringReader(oneLine)); //a line	
 	String line;
@@ -496,8 +498,8 @@ public void RuleMapNonFunc(String paragraph, String textResult) throws IOExcepti
 	String sentences[] = sdetector.sentDetect(Input); //Paragraph to Sentences
 	
 	for( String oneLine : sentences){ // Take Sentences by Sentences
-		oneLine= oneLine.replace(".", "");   
-		oneLine= oneLine.replace(",", "");   
+		//oneLine= oneLine.replace(".", "");   
+		//oneLine= oneLine.replace(",", "");   
 		
 	ObjectStream<String> lineStream = new PlainTextByLineStream(new StringReader(oneLine)); //a line	
 	String line;

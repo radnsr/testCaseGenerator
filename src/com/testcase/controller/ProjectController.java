@@ -71,52 +71,61 @@ public class ProjectController {
         return new ResponseEntity<Project>(current, HttpStatus.OK);
     } 
     @RequestMapping(value = "/project_testcase/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> GenerateTestCase(@PathVariable("id") int id) {
+    public ResponseEntity<ArrayList<ArrayList<String>>> GenerateTestCase(@PathVariable("id") int id) {
         System.out.println("Generating Testcase " + id);
          
         Project current= new Project();
         current= projectService.findById(id);        
         if (current==null) {
             System.out.println("Project with id " + id + " not found");
-            return new ResponseEntity<List<String>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<ArrayList<ArrayList<String>>>(HttpStatus.NOT_FOUND);
         } 
-        List<String> testList = new ArrayList<String>();
-        		testList=	projectService.GenerateTestCase(current.getFunc_require());
-        		
-        		String description="";
-        		String prerequisite="";
-        		String altenative="";
-        		String expected_result="";
-        		String input=current.getFunc_require();
-        		String paragraph[]=input.split("\\.");
-        		for(String sent : paragraph){
-        			if(sent.contains("target")){
-        				sent=sent.replace("target", "BBB target");
-        				String [] split=sent.split("BBB");
-        				description=split[1];
-        				testList.add(0, description);
-        			}
-        			if(sent.contains("prerequisite")){
-        				sent=sent.replace("prerequisite", "BBB prerequisite");
-        				String [] split=sent.split("BBB");
-        				prerequisite=split[1];
-        				testList.add(1, prerequisite);
-        			}
-        			if(sent.contains("alternative")){
-        				sent=sent.replace("alternative", "BBB alternative");
-        				String [] split=sent.split("BBB");
-        				altenative=split[1];
-        				testList.add(2, altenative);
-        			}
-        			if(sent.contains("outcome")){
-        				sent=sent.replace("outcome", "BBB outcome");
-        				String [] split=sent.split("BBB");
-        				expected_result=split[1];
-        				testList.add(3, expected_result);
-        			}
-        		}
-        System.out.println("TESTCASE:"+ testList);
+        String paragraphs=current.getFunc_require();
+        String[] scenes=paragraphs.split("\n\n");
         
-        return new ResponseEntity<List<String>>(testList, HttpStatus.OK);
+        ArrayList<ArrayList<String>> testListAll = new ArrayList<ArrayList<String>>();
+        
+        for(int i=0; i<scenes.length;i++){
+        	 ArrayList<String> testList = new ArrayList<String>();
+        	 System.out.println("scen"+scenes);
+     		testList=	projectService.GenerateTestCase(scenes[i]);//pass the spilt paragraph
+     		
+     		String description="";
+     		String prerequisite="";
+     		String altenative="";
+     		String expected_result="";
+     		String input=current.getFunc_require();
+     		String paragraph[]=input.split("\\.");
+     		for(String sent : paragraph){
+     			if(sent.contains("target")){
+     				sent=sent.replace("target", "BBB target");
+     				String [] split=sent.split("BBB");
+     				description=split[1];
+     				testList.add(0, description);
+     			}
+     			if(sent.contains("prerequisite")){
+     				sent=sent.replace("prerequisite", "BBB prerequisite");
+     				String [] split=sent.split("BBB");
+     				prerequisite=split[1];
+     				testList.add(1, prerequisite);
+     			}
+     			if(sent.contains("alternative")){
+     				sent=sent.replace("alternative", "BBB alternative");
+     				String [] split=sent.split("BBB");
+     				altenative=split[1];
+     				testList.add(2, altenative);
+     			}
+     			if(sent.contains("outcome")){
+     				sent=sent.replace("outcome", "BBB outcome");
+     				String [] split=sent.split("BBB");
+     				expected_result=split[1];
+     				testList.add(3, expected_result);
+     			}
+     		}
+     System.out.println("TESTCASE"+i+ testList);
+        	testListAll.add(testList);
+        }
+          
+        return new ResponseEntity<ArrayList<ArrayList<String>>>(testListAll, HttpStatus.OK);
     }
 }
