@@ -81,13 +81,13 @@ public class ProjectController {
             return new ResponseEntity<ArrayList<ArrayList<String>>>(HttpStatus.NOT_FOUND);
         } 
         String paragraphs=current.getFunc_require();
-        String[] scenes=paragraphs.split("\n\n");
+        String[] scenes=paragraphs.split("\\r?\\n");
         
         ArrayList<ArrayList<String>> testListAll = new ArrayList<ArrayList<String>>();
         
         for(int i=0; i<scenes.length;i++){
         	 ArrayList<String> testList = new ArrayList<String>();
-        	 System.out.println("scen"+scenes);
+        	 System.out.println("scen"+i+":"+scenes);
      		testList=	projectService.GenerateTestCase(scenes[i]);//pass the spilt paragraph
      		
      		String description="";

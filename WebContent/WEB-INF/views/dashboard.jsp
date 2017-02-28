@@ -569,18 +569,18 @@ $("body").on("click","#generateBtn",function(e){
 				$("#testcase-modal").modal("show");
 
 			 $("#test_body").empty(); // line added here
-			 
-			 var description=data[0];
-			 var prerequisite=data[1];
-			 var alternative=data[2];
-			 var expected_result=data[3];
+			 alert(data[0]);
+			 var description=data[0][0];
+			 var prerequisite=data[0][1];
+			 var alternative=data[0][2];
+			 var expected_result=data[0][3];
 			 
 			 $("#description").text(description);
 			 $("#prerequisite").text(prerequisite);
 			 $("#alternative").text(alternative);
 			 $("#expected_result").text(expected_result);
-			for(i=4; i<data.length;i++){
-				$("#test_body").append("<tr><td>"+Number(i-3)+"</td><td>"+data[i]+"</td>");
+			for(i=4; i<data[0].length;i++){
+				$("#test_body").append("<tr><td>"+Number(i-3)+"</td><td>"+data[0][i]+"</td>");
 			}
 			
 			

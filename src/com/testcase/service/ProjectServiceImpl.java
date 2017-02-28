@@ -56,11 +56,12 @@ dao.save(project);
 				if(oneLine.toLowerCase().contains("target") || oneLine.toLowerCase().contains("prerequisite") ||
 						oneLine.toLowerCase().contains("outcome") || oneLine.toLowerCase().contains("alternative")){
 					testCaseList.remove(i);
+				}else{
+					System.err.println("else"+testCaseList.get(i));
 				}
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return testCaseList;
