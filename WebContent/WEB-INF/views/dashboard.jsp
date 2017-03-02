@@ -466,19 +466,12 @@ $(document).contextmenu({
 			$.each(data,function(i,obj){
 				if(obj.status ==1){
 				var html='<li><span class="hasmenu projectItem" id="P'+obj.id+'">'+obj.projectName+'</span>'+
-				'<ul><li><span><i class="icon-minus-sign"></i>Functional Testcases</span></li>'+
+				'<ul><li id="F'+obj.id+'"><span><i class="icon-minus-sign"></i>Functional Testcases</span></li>'+
 				'<li><span><i class="icon-minus-sign"></i>Non Functional Testcases</span></li></ul>'
                         +'</li>';
 		         $("#project_list").append(html);
 				}
-				  <li>
-              	<span><i class="icon-minus-sign"></i> Test Case Suite 1</span>
-                  <ul>
-                      <li>
-	                        <span><i class="icon-leaf"></i> Test Case1</span>
-                      </li>
-                  </ul>
-              </li>
+				  
 			});
 			treeList();
 		}	 
@@ -587,6 +580,9 @@ $("body").on("click","#generateBtn",function(e){
 			 $("#prerequisite").text(prerequisite);
 			 $("#alternative").text(alternative);
 			 $("#expected_result").text(expected_result);
+			 var htm="<li><span><i class='icon-minus-sign'></i>Test Suite 1</span>"+
+	                  "<ul><li><span><i class='icon-leaf'></i> Test Case1</span></li></ul> </li>";
+			 $("#F"+id).append(htm);
 			for(i=4; i<data[0].length;i++){
 				$("#test_body").append("<tr><td>"+Number(i-3)+"</td><td>"+data[0][i]+"</td>");
 			}

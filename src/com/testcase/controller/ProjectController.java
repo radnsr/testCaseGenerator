@@ -1,7 +1,10 @@
 package com.testcase.controller;
  
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -123,6 +126,12 @@ public class ProjectController {
      			}
      		}
      System.out.println("TESTCASE"+i+ testList);
+
+
+Set<String> hs = new LinkedHashSet<>(testList);
+//hs.addAll(testList);
+testList.clear();
+testList.addAll(hs);
         	testListAll.add(testList);
         }
           
