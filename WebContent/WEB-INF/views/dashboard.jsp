@@ -471,6 +471,14 @@ $(document).contextmenu({
                         +'</li>';
 		         $("#project_list").append(html);
 				}
+				  <li>
+              	<span><i class="icon-minus-sign"></i> Test Case Suite 1</span>
+                  <ul>
+                      <li>
+	                        <span><i class="icon-leaf"></i> Test Case1</span>
+                      </li>
+                  </ul>
+              </li>
 			});
 			treeList();
 		}	 
